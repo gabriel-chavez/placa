@@ -1,0 +1,29 @@
+[33mcommit 94eb40029614433011f71e0c7fe1a385852833c3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: UNIVIDA\lchavez <lchavez@univida.bo>
+Date:   Wed Jan 17 11:27:32 2024 -0400
+
+    Configurar Git LFS
+
+[33mcommit 06d7de69418341a5a7890608f0602ee7f034cfcc[m
+Author: UNIVIDA\lchavez <lchavez@univida.bo>
+Date:   Wed Jan 17 11:22:47 2024 -0400
+
+    Eliminar archivos grandes
+
+[33mcommit ab9e60f20eba7c9a19fa345617c20979253f1534[m
+Author: UNIVIDA\lchavez <lchavez@univida.bo>
+Date:   Wed Jan 17 10:44:31 2024 -0400
+
+    actualización
+
+[33mcommit 85f43cb106c381cfca4451504c294339bc3307c7[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: UNIVIDA\lchavez <lchavez@univida.bo>
+Date:   Thu Dec 21 15:46:24 2023 -0400
+
+    Eliminar archivos grandes
+
+[33mcommit 8cece17c06a7abd51d93ea1c4f1eaabf71144a0e[m
+Author: UNIVIDA\lchavez <lchavez@univida.bo>
+Date:   Thu Dec 21 15:18:55 2023 -0400
+
+    first commit

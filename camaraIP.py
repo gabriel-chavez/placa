@@ -68,36 +68,37 @@ def show_dahua_live_video(ip_address, username, password):
                 ids_seguidos = seguidor_vehiculos.update(np.asarray(detecciones_))
             except:
                 ids_seguidos = 0
-            if (ids_seguidos != 0).any():
-                # Detectar placas de matrícula
-                placas_matricula = detector_placas(fotograma)[0]
-                #for placa_matricula in placas_matricula.boxes.data.tolist():
-                if placas_matricula.boxes.data.tolist():
-                    placa_matricula = placas_matricula.boxes.data.tolist()[0]
-                    
-                    x1, y1, x2, y2, score, class_id = placa_matricula
-                    xcar1, ycar1, xcar2, ycar2, id_vehiculo = get_car(placa_matricula, ids_seguidos)
+            if isinstance(ids_seguidos, np.ndarray):
+                if ids_seguidos.size > 0 and ids_seguidos.any():
+                    # Detectar placas de matrícula
+                    placas_matricula = detector_placas(fotograma)[0]
+                    #for placa_matricula in placas_matricula.boxes.data.tolist():
+                    if placas_matricula.boxes.data.tolist():
+                        placa_matricula = placas_matricula.boxes.data.tolist()[0]
+                        
+                        x1, y1, x2, y2, score, class_id = placa_matricula
+                        xcar1, ycar1, xcar2, ycar2, id_vehiculo = get_car(placa_matricula, ids_seguidos)
 
-                    if id_vehiculo != -1:
-                        placa_matricula_recortada = fotograma[int(y1):int(y2), int(x1): int(x2), :]
-                        cv2.rectangle(fotograma, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
+                        if id_vehiculo != -1:
+                            placa_matricula_recortada = fotograma[int(y1):int(y2), int(x1): int(x2), :]
+                            cv2.rectangle(fotograma, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
 
-                        placa_matricula_umbralizada = procesar_imagen_color(placa_matricula_recortada)
-                        texto_placa_matricula, puntaje_texto_placa_matricula = leer_placa(placa_matricula_umbralizada)
-                
-                        texto_final=mejor_texto_reconocido(id_vehiculo,puntaje_texto_placa_matricula,texto_placa_matricula,mejor_puntaje, mejor_reconocimiento)
+                            placa_matricula_umbralizada = procesar_imagen_color(placa_matricula_recortada)
+                            texto_placa_matricula, puntaje_texto_placa_matricula = leer_placa(placa_matricula_umbralizada)
                     
-                        cv2.putText(fotograma, texto_final, (int(x1), int(y1) - 10),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2, cv2.LINE_AA)
-                    
-                        if texto_placa_matricula is not None:
-                            resultados[numero_fotograma][id_vehiculo] = {
-                                'vehiculo': {'bbox': [xcar1, ycar1, xcar2, ycar2]},
-                                'placa_matricula': {'bbox': [x1, y1, x2, y2],
-                                                    'texto': texto_placa_matricula,
-                                                    'bbox_puntaje': score,
-                                                    'texto_puntaje': puntaje_texto_placa_matricula}
-                            }
+                            texto_final=mejor_texto_reconocido(id_vehiculo,puntaje_texto_placa_matricula,texto_placa_matricula,mejor_puntaje, mejor_reconocimiento)
+                        
+                            cv2.putText(fotograma, texto_final, (int(x1), int(y1) - 10),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2, cv2.LINE_AA)
+                        
+                            if texto_placa_matricula is not None:
+                                resultados[numero_fotograma][id_vehiculo] = {
+                                    'vehiculo': {'bbox': [xcar1, ycar1, xcar2, ycar2]},
+                                    'placa_matricula': {'bbox': [x1, y1, x2, y2],
+                                                        'texto': texto_placa_matricula,
+                                                        'bbox_puntaje': score,
+                                                        'texto_puntaje': puntaje_texto_placa_matricula}
+                                }
 
             
                 
